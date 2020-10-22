@@ -1,0 +1,81 @@
+/* 背景 */
+.background-black-full{
+  background: black;
+}
+.background-black{
+  background: rgba(30, 30, 30)
+}
+.background-black-transparent{
+  background: rgba(30, 30, 30, 0.1)
+}
+.background-black-transparent-light{
+  background: rgba(30, 30, 30, 0.03)
+}
+.background-white-light{
+  background: rgb(250, 250, 250);
+}
+
+/* 盒子 */
+.shadow-light{
+  box-shadow: 0px 0px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.shadow-light-inset{
+  box-shadow: 0px 0px 12px 0 rgba(0, 0, 0, 0.1) inset;
+}
+.shadow-normal{
+  box-shadow: 0px 0px 12px 0 rgba(0, 0, 0, 0.3);
+}
+
+.border-transparent-1px{
+  border: 1px solid transparent;
+}
+
+.padding-zero{
+  padding: 0px;
+}
+
+.padding-medium-px{
+  padding: 20px;
+}
+.padding-medium-px-vertical{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.padding-medium-px-horizontal{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.padding-small-px{
+  padding: 10px;
+}
+.padding-small-px-horizontal{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.margin-medium-px{
+  margin: 20px;
+}
+.margin-medium-px-vertical{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.margin-medium-px-horizontal{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.margin-small-px-vertical{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.margin-small-px-horizontal{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.margin-mini-px{
+  margin: 3px;
+}
+.margin-mini-px-horizontal{
+  margin-left: 3px;
+  margin-right: 3px;
+}

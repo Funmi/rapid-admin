@@ -1,0 +1,32 @@
+
+/* 字体 */
+.fontsize-medium {
+  font-size: 20px;
+}
+.fontsize-small {
+  font-size: 15px;
+}
+.fontsize-mini {
+  font-size: 12px;
+}
+.bold {
+  font-weight: bold;
+}
+.color-white{
+  color: white;
+}
+.color-white-sub{
+  color: rgb(230, 230, 230);
+}
+.color-gray{
+  color: #606266;
+}
+.color-red{
+  color: red;
+}
+.color-el-blue{
+  color: #409EFF
+}
+.color-el-gray{
+  color: #909399;
+}

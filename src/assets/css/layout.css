@@ -1,0 +1,30 @@
+/* flex布局 */
+.flexbox {
+  display: flex;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.justify-between{
+  justify-content: space-between;
+}
+.justify-around{
+  justify-content: space-around;
+}
+.justify-center{
+  justify-content: center;
+}
+.align-center{
+  align-items: center;
+}
+
+/* 定位 */
+.absolute{
+  position: absolute;
+}
+.relative{
+  position: relative;
+}
+.fixed{
+  position: fixed;
+}
