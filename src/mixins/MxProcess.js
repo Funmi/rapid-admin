@@ -2,7 +2,7 @@ import Axios from '@/api/resource' // 请求接口
 export default {
   created() {
     if(this.reqAddress==undefined) {
-      this.error('data中需要声明reqAddress来指定表格请求路径')
+      console.error('data中需要声明reqAddress来指定表格请求路径')
     }
   },
   computed: {
@@ -163,7 +163,6 @@ export default {
     // 请求 ///////////////////////
     // 详情
     getDetail() {
-      console.log('this.activeColumn', this.activeColumn)
       return Axios.get(this.reqAddress+'/'+this.activeColumn.id)
       .then(res => {
         let {type, message, title} = res

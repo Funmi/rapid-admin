@@ -139,7 +139,7 @@ let MxTable = {
       this.status.search = true
       // 设置数据获取的筛选项
       // this.searchParams = payload
-      console.log('payload', payload)
+      // console.log('payload', payload)
       for (const key in payload) {
         this.searchParams[key] = payload[key]
       }
@@ -185,7 +185,7 @@ const tableOptHandler = {
   },
   // 表格工具栏操作 ////////////////
   '搜索': function(payload) {
-    console.log('payload in distributer', payload)
+    // console.log('payload in distributer', payload)
     let func = this.searchRecords_pre || this.searchRecords
     func(payload)
   },
