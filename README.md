@@ -317,12 +317,11 @@ export default {
 ```
 
 
-### 6. 监听表单操作
+### 6. 监听表格操作
 
 **监听表格操作事件** `table_btn_click` 
 
 模板页面右上方中默认附带了新增按钮，当表格中有数据时，还可以看到第一步中设置的查看、编辑、删除按钮，组成了基本的增删改查选项
-
 
 ```html
 <template>
@@ -339,4 +338,75 @@ export default {
 </template>
 ```
 ## 更多配置
-### 2. 编辑窗及详情窗配置
+
+### 1. 编辑窗及详情窗配置
+当数据字段较多时，可通过编辑框的属性进行调整
+* formWidth：窗口的宽度
+* labelWidth：字段名的宽度
+* 
+也提供了对窗口的分栏操作
+* asideItems：放到第二栏的字段名
+* breakPortion：左右两栏的比例，加和为24
+
+```html
+<template>
+  <div>
+    <fm-edit :dialogVisible="editForm.visible"
+    :title="(activeIndex==-1?'信息新增':'信息编辑')" 
+    :form="formDataEdit" :payload="payload" labelWidth="150px" formWidth="1000px"
+    :asideItems="[key_list, key_textarea]" :breakPortion="[12, 12]"
+    @edit_cancel="editCancel" @edit_confirm="editConfirm"></fm-edit>
+  </div>
+</template>
+```
+
+### 2. 字段属性配置
+
+**字段可见性**
+* hidden：在表格中隐藏，但在编辑窗和详情窗可见
+* readonly：在编辑窗中隐藏
+
+``` html
+···
+<script>
+···
+export default {
+  ···
+  methods: {
+    initTable() {
+      this.setTable('columns', [
+        // key_input字段将在编辑框中不可见
+        {label: '输入框', prop: 'key_input', readonly: true},
+        // key_textarea字段将在表格中不可见
+        {label: '文本域', prop: 'key_textarea', type: 'textarea', hidden: true},
+        ···
+      ])
+      ···
+    }
+  }
+}
+</script>
+```
+
+**其他属性**
+* width：字段在表格中的宽度
+* validators：输入验证类型，可选 `notNull`, `number`, `phoneNumber`, `idCode`
+
+``` html
+···
+<script>
+···
+export default {
+  ···
+  methods: {
+    initTable() {
+      this.setTable('columns', [
+        {label: '输入框', prop: 'key_input', validators: ['notNull', 'number']}
+        ···
+      ])
+      ···
+    }
+  }
+}
+</script>
+```
