@@ -53,6 +53,21 @@
 
 ## 开始使用
 
+**请求路径配置**
+
+模板采用了在根路径 .env 文件中配置请求地址的方式
+```
+VUE_APP_BASEPORT = 'your base url'
+VUE_APP_BASEPORT_COMMON = 'your base url'
+VUE_APP_BASE_RESOURCE = 'your base url'
+```
+
+**涉及到的一些特性** 
+
+了解这些语法有助于理解本模板代码中的一些工作机制
+* [slot (vue)](https://cn.vuejs.org/v2/guide/components-slots.html)
+* [mixin (vue)](https://cn.vuejs.org/v2/guide/mixins.html)
+
 ### 1. 创建一个最基础的表格页面
 *示例见 page1.vue*
 
@@ -182,6 +197,7 @@ export default {
 ```
 `rawPayload` 将会在 `MxProcess.js` 中被处理为 `payload`
 ```javascript
+// 生成的payload格式：
 payload: {
   key_radio: [
     {label: '是', value: true},
@@ -549,3 +565,8 @@ methods: {
   }
 }
 ```
+
+## 后台接口要求
+
+
+

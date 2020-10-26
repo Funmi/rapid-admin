@@ -4,12 +4,7 @@
     <fm-table :status="status" :searchOptions="searchOptions" 
     :columns="table.columns" :tableData="trimmedTableData" :options="table.options"
     @table_btn_click="tableOptDistributer" @tool_btn_click="toolOptDistributer"
-    @page_change="pageChange" @size_change="sizeChange" :payload="payload" :hideOnSinglePage="false">
-      <template v-slot:extraOpts>
-        <el-button>操作1</el-button>
-        <el-button>操作2</el-button>
-      </template>
-    </fm-table>
+    @page_change="pageChange" @size_change="sizeChange" :payload="payload" :hideOnSinglePage="false"></fm-table>
 
     <!-- 数据编辑框 -->
     <fm-edit :dialogVisible="editForm.visible" :title="(activeIndex==-1?'信息新增':'信息编辑')" 
@@ -71,11 +66,10 @@
           {label: '设施名称', prop: 'name'},
           {label: '所在乡镇', prop: 'villages'},
           {label: '所在社区', prop: 'community'},
-          {label: '设施图片', prop: 'pic', type: 'list'},
-          // {label: "设施图片", prop: "pic", type: "image", slot: 'image',
-          //   actionUrl: process.env.VUE_APP_BASEPORT + "/uploadFile",
-          //   limit: { max: 2, size: 5, suffix: ["png", "jpg", "bmp", "jpeg", "gif"] }
-          // },
+          {label: "设施图片", prop: "pic", type: "image", slot: 'image',
+            actionUrl: process.env.VUE_APP_BASEPORT + "/uploadFile",
+            limit: { max: 2, size: 5, suffix: ["png", "jpg", "bmp", "jpeg", "gif"] }
+          },
           {label: '设施类型', prop: 'type', type: 'selectOne', validators: ['notNull']},
           // {label: '产品供应商', prop: 'supplier', validators: ['notNull']},
           {label: '设施状态', prop: 'status', type: 'selectOne'},
