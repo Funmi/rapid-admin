@@ -72,11 +72,7 @@ export default {
       default: function() {
         return {}
       }
-    }, //用作搜索选项的列
-    searchPlaceholder: {
-      type: String,
-      default: "请输入"
-    },
+    }
   },
   data() {
     return {

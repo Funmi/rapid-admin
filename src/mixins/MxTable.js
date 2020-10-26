@@ -124,7 +124,22 @@ let MxTable = {
       })
     },
     preview() {
-      window.open(process.env.VUE_APP_BASE_RESOURCE+this.table.data[this.activeIndex].file[0].url, '_blank')
+      // 预览将打开所有类型为'file'的文件
+      let keys = this.table.columns
+      .filter(item => {
+        if(item.type == 'file') return true
+      })
+      .map(item => {
+        return item.prop
+      })
+      let record = this.table.data[this.activeIndex]
+      for (const key in record) {
+        if(keys.includes(key)) {
+          for (const url of record[key]) {
+            window.open(process.env.VUE_APP_BASE_RESOURCE + url, '_blank')
+          }
+        }
+      }
     },
     displayDetails() {
       this.showDisplayForm()

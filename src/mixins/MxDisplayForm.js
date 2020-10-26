@@ -1,29 +1,3 @@
-let manifest = {
-  '开始': {
-    
-  },
-  '依赖的mixin': {
-    MxTable: {
-      '数据': {
-        table: '数据data和表头column'
-      },
-      '方法': {
-        setTable: '设置表头、当页数据、操作按钮',
-        setStatus: '设置表格页面信息'
-      }
-    },
-  },
-  '暴露的数据': {
-    computed: {
-      'formDataDisplay': ''
-    }
-  },
-  '暴露的接口': {
-    showDisplayForm: '',
-    hideDisplayForm: ''
-  }
-}
-
 export default {
   data() {
     return {
@@ -40,7 +14,7 @@ export default {
       // 新增数据时activeIndex为-1
       let column = this.trimmedTableData[this.activeIndex]||[]
       for (const item of this.table.columns) {
-        if(item.writeonly) continue //跳过不展示的项
+        if(item.hidden_display) continue //跳过不展示的项
         let value = column[item.prop]
         if(value!=undefined) {
           if(item.type == 'list' && value instanceof Array) {

@@ -144,7 +144,8 @@ export default {
       })
     },
     removeColumnData_pre() {
-      this.removeData().then(res => {
+      let removeData = this.removeData_re||this.removeData
+      removeData().then(res => {
         let {type, message, title} = res
         if(type=='success') {
           this.success()

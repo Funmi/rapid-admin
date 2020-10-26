@@ -12,8 +12,9 @@ export default {
   computed: {
     richTypes() {
       return {
-        array: ['checkbox', 'select', 'list', 'checkboxes'],
-        object: ['radio', 'selectOne']
+        array: ['checkbox', 'select', 'checkboxes'],
+        object: ['radio', 'selectOne'],
+        // 'list'单独处理
       }
     },
     formTitle() {
@@ -25,7 +26,7 @@ export default {
       let column = this.trimmedTableData[this.activeIndex]||[]
       // 通过表头遍历
       for (const item of this.table.columns) {
-        if(item.readonly) continue //跳过不可编辑项
+        if(item.hidden_edit) continue //跳过不可编辑项
         let value = column[item.prop]
 
       // 1.数据剥离：将{label, value} 转为 value
@@ -41,6 +42,11 @@ export default {
           // 单选项为对象
           else if(this.richTypes.object.includes(item.type)) {
             value = (column[item.prop]||{}).value
+          }
+          else if(item.type == 'list') {
+            value = (column[item.prop]||[]).map(item => {
+              return {label: item}
+            })
           }
         } catch (error) {
           console.error('请确认' + item.prop + ' type是否选择正确')

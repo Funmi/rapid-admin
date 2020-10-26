@@ -11,6 +11,7 @@ function empty(value) {
 
 // validators中非空需要单独添加
 
+// TODO:
 function validOrEmpty(reg, tip) {
   return function(rule, value, callback) {
     if(empty(value)) {

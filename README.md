@@ -27,8 +27,8 @@
   * Filter.vue：数据筛选、查找的工具栏
   * Pagination.vue：分页组件
 * 两个弹窗组件
-  * EditForm.vue：编辑`Table.vue`、`Media.vue` 中数据项详情的弹窗
-  * DisplayForm.vue：查看 `Table.vue`、`Media.vue` 中数据项详情的弹窗
+  * EditForm.vue：编辑`Table.vue`、`Media.vue` 中数据元素详情的弹窗
+  * DisplayForm.vue：查看 `Table.vue`、`Media.vue` 中数据元素详情的弹窗
 * 两个辅助代码
   * resource.js：对 `axios` 的封装。在请求头中加入了token，并将响应信息处理为了便于 `MxNotify.js` 使用的格式
   * validators.js：element-ui表单验证所需的输入验证函数
@@ -86,7 +86,7 @@ export default {
 </template>
 ···
 ```
-设置表格字段及数据项操作
+设置表格字段及数据元素操作
 ``` html
 ···
 <script>
@@ -144,7 +144,6 @@ export default {
 
         {label: '图片', prop: 'key_image', type: 'image', slot:'image'},
         {label: '单个文件', prop: 'key_file', type: 'file'},
-        {label: '多个文件', prop: 'key_file', type: 'files'}, //数量上限3
       ])
       ···
     }
@@ -156,7 +155,7 @@ export default {
 
 **设置选项荷载**
 >本模板中将 `{label, value}` 这种格式作为各模块中处理、渲染特殊类型数据的标准化格式
-<br>TODO: 特殊类型指通过选择产生，存在 `1:n` 关系的字段类型，即各类单选多选
+<br>特殊类型指通过选择产生的数据字段，即各类单选多选
 
 ``` html
 <script>
@@ -343,7 +342,7 @@ export default {
 当数据字段较多时，可通过编辑框的属性进行调整
 * formWidth：窗口的宽度
 * labelWidth：字段名的宽度
-* 
+
 也提供了对窗口的分栏操作
 * asideItems：放到第二栏的字段名
 * breakPortion：左右两栏的比例，加和为24
@@ -362,9 +361,10 @@ export default {
 
 ### 2. 字段属性配置
 
-**字段可见性**
+**基础字段可见性**
 * hidden：在表格中隐藏，但在编辑窗和详情窗可见
-* readonly：在编辑窗中隐藏
+* hidden_edit：在编辑窗中隐藏
+* hidden_display：在详情窗中隐藏
 
 ``` html
 ···
@@ -376,7 +376,7 @@ export default {
     initTable() {
       this.setTable('columns', [
         // key_input字段将在编辑框中不可见
-        {label: '输入框', prop: 'key_input', readonly: true},
+        {label: '输入框', prop: 'key_input', hidden_edit: true},
         // key_textarea字段将在表格中不可见
         {label: '文本域', prop: 'key_textarea', type: 'textarea', hidden: true},
         ···
@@ -388,7 +388,7 @@ export default {
 </script>
 ```
 
-**其他属性**
+**基础字段其他属性**
 * width：字段在表格中的宽度
 * validators：输入验证类型，可选 `notNull`, `number`, `phoneNumber`, `idCode`
 
@@ -401,7 +401,8 @@ export default {
   methods: {
     initTable() {
       this.setTable('columns', [
-        {label: '输入框', prop: 'key_input', validators: ['notNull', 'number']}
+        {label: '输入框', prop: 'key_input', validators: ['notNull', 'number']},
+        {label: '单选下拉框', prop: 'key_selectOne', type: 'selectOne', validators: ['notNull']},
         ···
       ])
       ···
@@ -409,4 +410,142 @@ export default {
   }
 }
 </script>
+```
+
+**文件类型字段配置**
+
+* 可选类型：`file`, `files`, `image`
+* 必要配置
+  * actionUrl：文件上传接口地址
+* 可选配置
+  * limit：上传文件的约束
+    * max：文件数量上限，未设定时为1
+    * size：文件大小，单位为MB
+    * suffix：文件类型数组，可选的文件后缀名
+
+```js
+{
+  label: '封面',
+  prop: 'cover',
+  hidden: true,
+  type: 'image',
+  actionUrl: process.env.VUE_APP_BASEPORT_COMMON + '/upload/file',
+  limit: {
+    max: 2,
+    size: 5, 
+    suffix: ['png', 'jpg', 'bmp', 'jpeg', 'gif']
+  }
+}
+```
+
+
+### 3. 设置表格操作按钮
+
+**基于数据元素**
+
+基于数据元素即针对某一行数据的操作，模板中已经提供了：
+* 查看：查看数据详情
+* 编辑：对数据进行编辑
+* 删除：删除此行数据
+* 预览：在新标签页中打开所有 `type` 为 `file` 的文件对应地址
+
+在各页面 `initTable` 方法中调用 `setTable` 方法即可
+```js
+···
+initTable() {
+  ···
+  this.setTable('options', [
+    // type 仅用于选择el-button样式用
+    {text: "预览", type: "warning"},
+    {text: "查看", type: "primary"},
+    {text: "编辑", type: "success"},
+    {text: '删除', type: 'danger'}
+  ])
+}
+```
+若有自定义操作，也可配置相应操作按钮数据
+```js
+this.setTable('options', [
+  ···
+  {text: '自定义按钮', type: 'info'}
+])
+```
+然后在页面 `methods` 中定义一个 `extraTableOptDistributer` 方法 <br>
+当自定义按钮被点击时，方法将会被调用，你可以在此方法中编写自己的事件分发逻辑
+```js
+···
+methods: {
+  extraTableOptDistributer(text) {
+    if(text == '自定义按钮')
+    ···
+  }
+}
+```
+
+**不基于数据元素**
+
+即不针对已有特定行数据的一些方法，模板中已经提供了：
+* 新增：增加一行新数据
+
+添加一些自定义操作
+```html
+<fm-table>
+  <template v-slot:extraOpts>
+    <el-button @click="opt1">操作1</el-button>
+    <el-button @click="opt2">操作2</el-button>
+  </template>
+</fm-table>
+```
+>采用 `vue` 中的插槽语法特性对自定义处理进行实现<br>
+>插槽中的作用域在当前界面，所以你可以直接在页面中编写相应逻辑
+
+移除默认的新增按钮，传入一个空结点进行覆盖即可
+```html
+<fm-table>
+  <template v-slot:default>
+    <div/>
+  </template>
+</fm-table>
+```
+*添加自定义按钮与覆盖默认按钮并不冲突*
+
+### 4. 数据流程介入
+数据处理流程即一次次的数据请求、界面渲染过程。<br>
+若前后端数据兼容需要一定的转换流程，或是还需要其他附带操作，则可在数据请求前后介入进行相应操作。
+
+**介入点：**
+* getData_re：获取本页列表数据
+* getDetail_re：获取特定行详情数据
+* editData_re：编辑特定行数据
+* removeData_re：删除特定行数据
+* addData_re：新增数据
+
+*五个方法对应的原方法均为 `promise`*
+
+**介入方式：**
+在页面中定义对应介入点的方法
+
+请求发送前：
+```js
+methods: {
+  addData_re(row) {
+    // 发送前对数据的一些操作
+    // ··· 介入过程
+    this.addData(row) // 再调用原方法进行处理
+  }
+}
+```
+
+请求发送后：
+```js
+methods: {
+  getData_re() {
+    return this.getData()
+    .then(res => {
+      // 对获取到的数据的一些操作
+      // ··· 介入过程
+      return res // 需要将处理后的数据返回
+    })
+  }
+}
 ```

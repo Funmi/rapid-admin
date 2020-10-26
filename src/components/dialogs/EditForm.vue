@@ -22,18 +22,18 @@
           <el-form-item v-for="(item, i) in form" :key="i" :label="item.label" :prop="item.prop"
           v-show="!asideItems.includes(item.prop)">
             <!-- 文件 file限制1个文件，files3个 -->
-            <el-upload v-if="['file', 'files', 'image'].includes(item.type)"
+            <el-upload v-if="['file', 'image'].includes(item.type)"
               style="transition: none;"
-              :auto-upload="true" :action="item.actionUrl" :limit="(item.type=='files'? 3: 1)"
+              :auto-upload="true" :action="item.actionUrl" :limit="((item.limit||{}).max||1)"
               :headers="headers"
               :on-success="uploadSuccess(i, item)" :on-error="uploadError(i, item)"
               :on-remove="onRemove(i)" :before-upload="beforeUpload(item.limit)"
               :on-preview="previewFile"
               :file-list="(formLocal[i]||{}).value">
               <el-button size="small" type="primary"
-              :disabled="((formLocal[i]||[]).value||{}).length>0">点击上传</el-button>
+              :disabled="((formLocal[i]||[]).value||{}).length>=((item.limit||{}).max||1)">点击上传</el-button>
               <span @click.stop class="tip" v-if="((formLocal[i]||[]).value||{}).length>0">点击下方文件可进行预览</span>
-              <div slot="tip" class="el-upload__tip" v-if="item.limit">{{item.limit.suffix.join('、')}} &nbsp;|&nbsp; {{item.limit.size}}MB</div>
+              <div slot="tip" class="el-upload__tip" v-if="item.limit">{{item.limit.suffix.join('、')}} &nbsp;|&nbsp; {{item.limit.size}}MB&nbsp;|&nbsp; 文件数上限：{{(item.limit||{}).max||1}}</div>
             </el-upload>
 
             <!-- 多选框 -->
@@ -125,18 +125,18 @@
           <el-form-item v-for="(item, i) in form" :key="i" :label="item.label" :prop="item.prop"
           v-show="asideItems.includes(item.prop)">
             <!-- 文件 file限制1个文件，files3个 -->
-            <el-upload v-if="['file', 'files', 'image'].includes(item.type)"
+            <el-upload v-if="['file', 'image'].includes(item.type)"
               style="transition: none;"
-              :auto-upload="true" :action="item.actionUrl" :limit="(item.type=='files'? 3: 1)"
+              :auto-upload="true" :action="item.actionUrl" :limit="((item.limit||{}).max||1)"
               :headers="headers"
               :on-success="uploadSuccess(i, item)" :on-error="uploadError(i, item)"
               :on-remove="onRemove(i)" :before-upload="beforeUpload(item.limit)"
               :on-preview="previewFile"
               :file-list="(formLocal[i]||{}).value">
               <el-button size="small" type="primary"
-              :disabled="((formLocal[i]||[]).value||{}).length>0">点击上传</el-button>
+              :disabled="((formLocal[i]||[]).value||{}).length>=((item.limit||{}).max||1)">点击上传</el-button>
               <span @click.stop class="tip" v-if="((formLocal[i]||[]).value||{}).length>0">点击下方文件可进行预览</span>
-              <div slot="tip" class="el-upload__tip" v-if="item.limit">{{item.limit.suffix.join('、')}} &nbsp;|&nbsp; {{item.limit.size}}MB</div>
+              <div slot="tip" class="el-upload__tip" v-if="item.limit">{{item.limit.suffix.join('、')}} &nbsp;|&nbsp; {{item.limit.size}}MB&nbsp;|&nbsp; 文件数上限：{{(item.limit||{}).max||1}}</div>
             </el-upload>
 
             <!-- 富文本编辑器 -->
@@ -388,6 +388,7 @@
             this.error('文件格式不支持')
             return false
           }
+          // 数量限制el组件已经提供
         }
       },
       onRemove(index) {
@@ -401,10 +402,11 @@
       uploadSuccess(index) {
         return (res, file, fileList) => {
           if(res.code == 200) {
-            file.annex = res.data
+            // 将地址放到name字段后续处理会用到
+            file.name = res.data.newName
             // 设置用来预览的url
-            file.url = file.annex
-            console.log('this.formLocal[index]', index)
+            file.url = res.data.newName
+            console.log('this.formLocal[index]', this.formLocal[index])
             this.$set(this.formLocal[index], 'value', fileList)
           }
         }

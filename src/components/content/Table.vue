@@ -3,7 +3,7 @@
     <!-- 工具栏 -->
     <fm-tool class="margin-medium-px"
     :status="status" :searchOptions="searchOptions" :payload="payload"
-    :searchPlaceholder="searchPlaceholder" :columns="columns"
+    :columns="columns"
     @tool_btn_click="toolBtnClick">
       <template v-slot:right>
         <div>
@@ -101,7 +101,6 @@ export default {
     },
     status: Object, // page, amount, pageSize, search
     searchOptions: Object, //用作搜索选项的列
-    searchPlaceholder: String,
     // 筛选选项用
     payload: {
       type: Object,
@@ -130,8 +129,12 @@ export default {
     // 表格数据处理 ////////
     // 图片地址处理
     imageProcessor(raw) {
-      if (raw.startsWith("http")) return raw;
-      return process.env.VUE_APP_BASE_RESOURCE + raw;
+      let path = raw.name || raw
+      if(typeof path != 'string') {
+        console.log('文件地址类型非string', typeof path)
+      }
+      if (path.startsWith("http")) return path;
+      return process.env.VUE_APP_BASE_RESOURCE + path;
     },
     // 文字处理
     textProcessor(raw) {
