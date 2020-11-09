@@ -404,33 +404,9 @@ export default {
 </script>
 ```
 
-**基础字段其他属性**
-* width：字段在表格中的宽度
-* validators：输入验证类型，可选 `notNull`, `number`, `phoneNumber`, `idCode`
-
-``` html
-···
-<script>
-···
-export default {
-  ···
-  methods: {
-    initTable() {
-      this.setTable('columns', [
-        {label: '输入框', prop: 'key_input', validators: ['notNull', 'number']},
-        {label: '单选下拉框', prop: 'key_selectOne', type: 'selectOne', validators: ['notNull']},
-        ···
-      ])
-      ···
-    }
-  }
-}
-</script>
-```
-
 **文件类型字段配置**
 
-* 可选类型：`file`, `files`, `image`
+* type：文件类型，可选 `file`, `files`, `image`
 * 必要配置
   * actionUrl：文件上传接口地址
 * 可选配置
@@ -445,6 +421,7 @@ export default {
   prop: 'cover',
   hidden: true,
   type: 'image',
+  slot: 'image',
   actionUrl: process.env.VUE_APP_BASEPORT_COMMON + '/upload/file',
   limit: {
     max: 2,
@@ -454,6 +431,32 @@ export default {
 }
 ```
 
+
+**其他属性**
+* width：字段在表格中的宽度
+* validators：输入验证类型，可选 `notNull`, `number`, `phoneNumber`, `idCode`
+* slot：表明数据在表格中的显示方式，可选 `image`
+
+``` html
+···
+<script>
+···
+export default {
+  ···
+  methods: {
+    initTable() {
+      this.setTable('columns', [
+        {label: '输入框', prop: 'key_input', validators: ['notNull', 'number']},
+        {label: '单选下拉框', prop: 'key_selectOne', type: 'selectOne', validators: ['notNull']},{label: '网络图片', prop: 'key_input_image', type: 'input', slot: 'image'},
+        {label: '服务器图片', prop: 'key_image', type: 'image', slot: 'image'},
+        ···
+      ])
+      ···
+    }
+  }
+}
+</script>
+```
 
 ### 3. 设置表格操作按钮
 
@@ -486,7 +489,7 @@ this.setTable('options', [
   {text: '自定义按钮', type: 'info'}
 ])
 ```
-然后在页面 `methods` 中定义一个 `extraTableOptDistributer` 方法 <br>
+需要在页面 `methods` 中定义一个 `extraTableOptDistributer` 方法 <br>
 当自定义按钮被点击时，方法将会被调用，你可以在此方法中编写自己的事件分发逻辑
 ```js
 ···
@@ -500,7 +503,7 @@ methods: {
 
 **不基于数据元素**
 
-即不针对已有特定行数据的一些方法，模板中已经提供了：
+即不针对已有特定数据的一些操作，模板中已经提供了：
 * 新增：增加一行新数据
 
 添加一些自定义操作
@@ -568,5 +571,5 @@ methods: {
 
 ## 后台接口要求
 
-
-
+* 接口地址及请求方法需满足 `RESTful API` 标准
+* 时间筛选参数以含起止时间的数组的方式进行传递
