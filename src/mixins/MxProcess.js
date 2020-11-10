@@ -101,6 +101,7 @@ export default {
       }) 
     },
     setColumnData_pre(row) {
+      row = this.payloadUnpack(row)
       // 新增，点击工具栏新增按钮时addRow方法将activeIndex设为了-1
       let isAddData = this.activeIndex == -1
       let addData = this.addData_re || this.addData
@@ -207,17 +208,11 @@ export default {
     },
     // 新增
     addData(row) {
-      return Axios.post(
-        this.reqAddress, 
-        this.payloadUnpack(row)
-      )
+      return Axios.post(this.reqAddress, row)
     },
     // 编辑
     editData(row) {
-      return Axios.put(
-        this.reqAddress+'/'+this.activeColumn.id,
-        this.payloadUnpack(row)
-      )
+      return Axios.put(this.reqAddress+'/'+this.activeColumn.id, row)
     },
     removeData() {
       return Axios.delete(this.reqAddress+'/' + this.activeColumn.id)
