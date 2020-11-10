@@ -422,7 +422,7 @@ export default {
   hidden: true,
   type: 'image',
   slot: 'image',
-  actionUrl: process.env.VUE_APP_BASEPORT_COMMON + '/upload/file',
+  actionUrl: process.env.VUE_APP_BASEPORT + '/uploadFile',
   limit: {
     max: 2,
     size: 5, 
