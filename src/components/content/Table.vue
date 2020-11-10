@@ -27,13 +27,14 @@
           <template slot-scope="scope">
             <div :style="(scope.row[item.prop]||{}).style">
               <div v-if="item.slot=='image'">
-                <el-popover trigger="hover">
-                  <!-- 表格中的小图 -->
+                <el-popover trigger="hover" placement="left">
+                  <!-- 气泡中的大图 -->
                   <el-image
                     v-for="(img, imgIndex) in scope.row[item.prop]" :key="imgIndex"
-                    :src="imageProcessor(img.url)" fit="contain"></el-image>
+                    :src="imageProcessor(img.url)" fit="contain"
+                    style="width: 600px; height: auto;"></el-image>
                   <div slot="reference">
-                    <!-- 气泡中的大图 -->
+                    <!-- 表格中的小图 -->
                     <el-image
                     v-for="(img, imgIndex) in scope.row[item.prop]" :key="imgIndex"
                     :src="imageProcessor(img.url)" fit="contain"></el-image>
