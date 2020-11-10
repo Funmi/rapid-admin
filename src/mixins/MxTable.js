@@ -136,7 +136,11 @@ let MxTable = {
       for (const key in record) {
         if(keys.includes(key)) {
           for (const url of record[key]) {
-            window.open(process.env.VUE_APP_BASE_RESOURCE + url, '_blank')
+            window.open(
+              url.startsWith('http')? url:
+              process.env.VUE_APP_BASE_RESOURCE + url,
+              '_blank'
+            )
           }
         }
       }
