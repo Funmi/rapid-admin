@@ -569,6 +569,16 @@ methods: {
 }
 ```
 
+### 5. 默认请求参数
+如果在获取时需要带上一些不希望通过筛选工具栏实现的查询条件，可在获取数据前向 `searchParams` 传入相关参数
+```js
+created() {
+  // 例如，希望获取type为1的数据
+  this.searchParams.type = 1
+  this.setTableData()
+}
+```
+
 ## 后台接口要求
 
 * 接口地址及请求方法需满足 `RESTful API` 标准
