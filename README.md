@@ -570,12 +570,14 @@ methods: {
 ```
 
 ### 5. 默认请求参数
-如果在获取时需要带上一些不希望通过筛选工具栏实现的查询条件，可在获取数据前向 `searchParams` 传入相关参数
+如果在获取时需要带上一些不希望通过筛选工具栏实现的查询条件，可在 `data` 向 `defaultSearchParams` 中设置相关查询参数
 ```js
-created() {
-  // 例如，希望获取type为1的数据
-  this.searchParams.type = 1
-  this.setTableData()
+data() {
+  return {
+    defaultSearchParams: {
+      type: 1
+    },
+  }
 }
 ```
 

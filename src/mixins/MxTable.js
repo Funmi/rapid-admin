@@ -23,6 +23,10 @@ let MxTable = {
       }
     }
   },
+  created() {
+    if(this.defaultSearchParams)
+    this.searchParams = JSON.parse(JSON.stringify(this.defaultSearchParams))
+  },
   computed: {
     // 处理一些数据格式后用于table渲染
     trimmedTableData() {
@@ -167,7 +171,9 @@ let MxTable = {
       this.setTableData(1)
     },
     retreatSearch() {
-      this.searchParams = {}
+      this.searchParams = this.defaultSearchParams?
+      JSON.parse(JSON.stringify(this.defaultSearchParams)):
+      {}
       this.status.search = false
       this.setTableData(1)
       // this.$refs.table.clearSearchData() // 不清除似乎更好
