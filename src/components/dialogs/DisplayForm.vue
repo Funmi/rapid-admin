@@ -45,7 +45,7 @@
               </div>
             </div>
             <!-- 文本（包括数组） -->
-            <div v-else>{{textTransformer((form[i]||{}).value)}}</div>
+            <div v-else>{{textTransformer((form[i]||{}).value)}} {{item.suffix}}</div>
           </el-form-item>
         </el-form>
       </el-col>
