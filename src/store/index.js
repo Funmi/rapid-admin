@@ -10,12 +10,13 @@ export default new Vuex.Store({
       token: sessionStorage.token||null
     },
     menu: [
-      {label: '页面1', route: '/page1', icon: 'el-icon-star-off'},
-      {label: '菜单2', route: '/menu2', icon: 'el-icon-help',
+      {label: '页面1', route: '/page1', icon: 'el-icon-document'},
+      {label: '页面2', route: '/page2', icon: 'el-icon-picture-outline'},
+      {label: '菜单2', route: '/menu2', icon: 'el-icon-receiving',
         subs: [
           {label: '页面2-1', route: '/menu2/page2-1'}
         ]
-      }
+      },
     ]
   },
   getters: {
