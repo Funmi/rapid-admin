@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 工具栏+表格+分页导航 -->
-    <fm-table type="image" :flexPortion="20"
+    <fm-media type="image" :flexPortion="20"
       :status="status"
       :searchOptions="searchOptions"
       :columns="table.columns"
@@ -13,7 +13,7 @@
       @size_change="sizeChange"
       :payload="payload"
       :hideOnSinglePage="false"
-    ></fm-table>
+    ></fm-media>
 
     <!-- 数据编辑框 -->
     <fm-edit
@@ -43,8 +43,7 @@
 </template>
 
 <script>
-// import Table from "@/components/content/Table";
-import Table from "@/components/content/Media";
+import Media from "@/components/content/Media";
 import MxTable from "@/mixins/MxTable";
 import EditForm from "@/components/dialogs/EditForm";
 import MxEditForm from "@/mixins/MxEditForm";
@@ -57,7 +56,7 @@ export default {
   name: "infrastructure",
   mixins: [MxTable, MxEditForm, MxDisplayForm, MxProcess, MxNotify],
   components: {
-    "fm-table": Table,
+    "fm-media": Media,
     "fm-edit": EditForm,
     "fm-display": DisplayForm
   },

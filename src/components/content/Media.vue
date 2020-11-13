@@ -96,10 +96,6 @@ export default {
       type: Number,
       default: 25
     },
-    hideTools: {
-      type: Boolean,
-      default: false
-    },
     mode: {
       type: String,
       default: 'image'
