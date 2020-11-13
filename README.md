@@ -3,6 +3,12 @@
 >
 >基于 [vue](https://www.npmjs.com/package/vue), [vue-router](https://www.npmjs.com/package/vue-router), [vuex](https://www.npmjs.com/package/vuex), [axios](https://www.npmjs.com/package/axios), [element-ui](https://www.npmjs.com/package/element-ui)
 
+**涉及到的一些特性** 
+
+了解这些语法有助于理解本模板代码中的一些工作机制
+* [slot (vue)](https://cn.vuejs.org/v2/guide/components-slots.html)
+* [mixin (vue)](https://cn.vuejs.org/v2/guide/mixins.html)
+
 
 ## 模板能力
 
@@ -53,7 +59,7 @@
 
 ## 开始使用
 
-**请求路径配置**
+### 0. 请求路径配置
 
 模板采用了在根路径 .env 文件中配置请求地址的方式
 ```
@@ -61,12 +67,6 @@ VUE_APP_BASEPORT = 'your base url'
 VUE_APP_BASEPORT_COMMON = 'your base url'
 VUE_APP_BASE_RESOURCE = 'your base url'
 ```
-
-**涉及到的一些特性** 
-
-了解这些语法有助于理解本模板代码中的一些工作机制
-* [slot (vue)](https://cn.vuejs.org/v2/guide/components-slots.html)
-* [mixin (vue)](https://cn.vuejs.org/v2/guide/mixins.html)
 
 ### 1. 创建一个最基础的表格页面
 *示例见 page1.vue*
