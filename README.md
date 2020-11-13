@@ -581,6 +581,35 @@ data() {
 }
 ```
 
+### 6. 内容组件 Media.vue
+`Media.vue` 为图片、视频、链接、iframe (*比如通过iframe插入某些平台的视频*) 的呈现提供了支持，使用上和 `Table.vue` 保持一致
+
+额外的参数：
+* mode: 指定的多媒体类型，可选：`image`(默认), `video`, `link`, `iframe`
+* flexPortion: 一个多媒体项在一行占据的百分比
+
+```html
+<fm-media mode="image" :flexPortion="20"></fm-media>
+```
+
+另外需要通过数据流程介入指定多媒体的预览内容 `mediaUrl` 和标题 `title`：
+```js
+methods: {
+  getData_re() {
+    return this.getData()
+    .then(res => {
+      console.log('res', res)
+      res.columns = res.columns.map(e => {
+        e.mediaUrl = e.pic[0] || ""
+        e.title = e.name
+        return e
+      })
+      return res
+    })
+  },
+}
+```
+
 ## 后台接口要求
 
 * 接口地址及请求方法需满足 `RESTful API` 标准
