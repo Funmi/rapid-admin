@@ -33,7 +33,7 @@
   * Filter.vue：数据筛选、查找的工具栏
   * Pagination.vue：分页组件
 * 两个弹窗组件
-  * EditForm.vue：编辑`Table.vue`、`Media.vue` 中数据元素详情的弹窗
+  * EditForm.vue：编辑 `Table.vue`、`Media.vue` 中数据元素详情的弹窗
   * DisplayForm.vue：查看 `Table.vue`、`Media.vue` 中数据元素详情的弹窗
 * 两个辅助代码
   * resource.js：对 `axios` 的封装。在请求头中加入了token，并将响应信息处理为了便于 `MxNotify.js` 使用的格式
@@ -41,8 +41,8 @@
 * 五个mixin
   * MxTable.js: 操作和支持 `Table.vue`、`Media.vue` 的数据处理、状态记录以及事件传递
   * MxProcess.js：负责前后台系统数据交互、数据标准化转换、选项数据的生成与拆解
-  * MxEditForm.js：负责 `MxProcess.js` 生成的标准化数据格式与适用于EditForm.vue组件的数据格式间的转换
-  * MxDisplayForm.js：负责 `MxProcess.js` 生成的标准化数据格式与适用于DisplayForm.vue组件的数据格式间的转换
+  * MxEditForm.js：负责 `MxProcess.js` 生成的标准化数据格式与适用于 `EditForm.vue` 组件的数据格式间的转换
+  * MxDisplayForm.js：负责 `MxProcess.js` 生成的标准化数据格式与适用于 `DisplayForm.vue` 组件的数据格式间的转换
   * MxNotify.js：对 `element-ui` 中Notify的封装，在 `MxProcess.js` 中的数据请求处理过程中进行了使用
 
 *MxProcess.js, MxEditForm.js, MxDisplayForm.js 对 MxTable.js 有数据依赖*
